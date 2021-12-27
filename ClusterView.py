@@ -8,8 +8,7 @@ from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 
 def Start(data, eps = 0.25, min_samples = 10):
-    # #############################################################################
-    # Generate sample data
+
     centers = [[1, 1], [-1, -1], [1, -1]]
     # X, labels_true = make_blobs(
     #     n_samples=700, centers=centers, cluster_std=0.5, random_state=2
@@ -17,14 +16,11 @@ def Start(data, eps = 0.25, min_samples = 10):
 
     X = StandardScaler().fit_transform(data)
 
-    # #############################################################################
-    # Compute DBSCAN
     db = DBSCAN(eps=eps, min_samples=min_samples).fit(X)
     core_samples_mask = np.zeros_like(db.labels_, dtype=bool)
     core_samples_mask[db.core_sample_indices_] = True
     labels = db.labels_
 
-    # Number of clusters in labels, ignoring noise if present.
     n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
     n_noise_ = list(labels).count(-1)
 
