@@ -227,26 +227,21 @@ class MainApp(QtWidgets.QMainWindow, design.Ui_MainWindow):
 
     def startTimeSeriesCalculations(self):
         #TimeSeriesArgs
-        self.i = 0
+        # self.i = 0
         self.indexOfChoosenParam = get_parameter_id_ts(self.dbPath[0], self.parametersComboBox.currentText())
         self.choosenParamTSList = get_parameter_values(self.dbPath[0], self.indexOfChoosenParam, self.timeSeriesDateFrom.dateTime().toPyDateTime(), self.timeSeriesDateTo.dateTime().toPyDateTime())
         # for i in range(len(self.allValuesList)):
         #     self.choosenParamTSList.append((self.allValuesList[i][self.indexOfChoosenParam]-1))
         if self.absEnergyCheck.isChecked():
-            TimeSeries.absEnergyCalc(self.choosenParamTSList)
-            self.label_10.setText(str(self.absEnergy))
+            TimeSeries.absEnergyCalc(self.choosenParamTSList, self)
         if self.absMaxChange.isChecked():
-            TimeSeries.absMax(self.choosenParamTSList)
-            self.label_12.setText(str(self.absMax))
+            TimeSeries.absMax(self.choosenParamTSList, self)
         if self.autocorrelationCheck.isChecked():
-            TimeSeries.autocorrelation(self.choosenParamTSList, 12)
-            self.label_13.setText(str(self.autocorrelation))
+            TimeSeries.autocorrelation(self.choosenParamTSList, 12, self)
         if self.complexityCheck.isChecked():
-            TimeSeries.complexity(self.choosenParamTSList, 12)
-            self.label_18.setText(str(self.complexity))
+            TimeSeries.complexity(self.choosenParamTSList, 12, self)
         if self.countAboveCheck.isChecked():
-            TimeSeries.countAbove(self.choosenParamTSList, 15)
-            self.label_20.setText(str(self.countAbove))
+            TimeSeries.countAbove(self.choosenParamTSList, 15, self)
 
     def openParametersForm(self):
         s = TimeSeriesParametersDesignConnector.Ui_TimeManagerController(self)
